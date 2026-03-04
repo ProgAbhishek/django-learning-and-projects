@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-top: #1a237e;
+            --bg-bottom: #0d47a1;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --accent: #ffcc33;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, var(--bg-top), var(--bg-bottom));
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .weather-app {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .weather-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 2rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(8px);
+        }
+
+        .weather-title {
+            margin: 0 0 1.5rem;
+            font-size: 1.75rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .weather-form {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .weather-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .weather-button {
+            border: none;
+            border-radius: 999px;
+            padding: 0.75rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--accent);
+            color: #1c1c1c;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .weather-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .weather-result {
+            text-align: center;
+        }
+
+        .weather-temp {
+            font-size: 3rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .weather-city {
+            margin: 0.4rem 0 0.2rem;
+            font-size: 1.5rem;
+        }
+
+        .weather-description {
+            margin: 0;
+            text-transform: capitalize;
+            letter-spacing: 0.03em;
+        }
+
+        .weather-meta {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .weather-icon {
+            width: 90px;
+            height: 90px;
+            display: block;
+            margin: 0.5rem auto;
+        }
+    </style>
+</head>
+<body>
+    <main class="weather-app">
+        <section class="weather-card">
+            <h1 class="weather-title">City Weather</h1>
+            <form method="POST" class="weather-form">
+                {% csrf_token %}
+                <input type="text" name="city" class="weather-input" placeholder="Enter city name">
+                <button type="submit" class="weather-button">Get Weather</button>
+            </form>
+            <div class="weather-result">
+                <p class="weather-temp">{{ temp }}</p>
+                <p class="weather-city">{{ city }}</p>
+                <p class="weather-description">{{ description }}</p>
+                <img class="weather-icon" src="http://openweathermap.org/img/w/{{ icon }}.png" alt="Weather icon">
+                <p class="weather-meta">{{ day }}</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
